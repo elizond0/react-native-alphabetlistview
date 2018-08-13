@@ -60,8 +60,8 @@ export default class SectionList extends Component {
     if (index >= this.props.sections.length) {
       return;
     }
-
-    if (this.lastSelectedIndex !== index && this.props.data[this.props.sections[index]].length) {
+    // 解决BUG:列表高度总和少于容器总高度的情况，右侧sectionList向上滑动到区域外时会报错
+    if (this.lastSelectedIndex !== index && this.props.data[this.props.sections[index]] && this.props.data[this.props.sections[index]].length) {
       this.lastSelectedIndex = index;
       this.onSectionSelect(this.props.sections[index], true);
     }
