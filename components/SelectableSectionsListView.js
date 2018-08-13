@@ -122,7 +122,9 @@ export default class SelectableSectionsListView extends Component {
 
       sectionHeaderHeight = index * sectionHeaderHeight;
       y += numcells * cellHeight + sectionHeaderHeight;
-      const maxY = this.totalHeight - this.containerHeight + headerHeight;
+      // 解决BUG:列表高度总和少于容器总高度的时，ui布局错乱
+      let isTotalHeightMoreThanContainer = this.totalHeight - this.containerHeight < 0 ? 0 : this.totalHeight - this.containerHeight ;
+      const maxY = isTotalHeightMoreThanContainer + headerHeight;
       y = y > maxY ? maxY : y;
 
       this.refs.listview.scrollTo({ x:0, y, animated: true });
